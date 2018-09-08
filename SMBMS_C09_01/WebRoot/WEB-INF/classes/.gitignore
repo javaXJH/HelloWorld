@@ -1,0 +1,5 @@
+/applicationContext-jdbc.xml
+/cn/
+/database.properties
+/log4j.properties
+/springmvc-servlet.xml

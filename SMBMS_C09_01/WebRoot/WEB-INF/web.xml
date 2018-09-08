@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+  <display-name>springMVC</display-name>
+  <!-- 这个欢迎页代表如果没有找到对应的url就会到这个页面来 -->
+  <!-- 一般就是找到包了，但是没有找到url，比如/WEB-INF/jsp -->
+  <welcome-file-list>
+    <welcome-file>/WEB-INF/jsp/login.jsp</welcome-file>
+  </welcome-file-list>
+  <!-- 把applicationContext 的文件位置找到——Spring的配置文件+++++可以直接复制-->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:applicationContext-*.xml</param-value>
+  </context-param>
+  	<listener>
+    	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+  
+  <!-- 转码的过滤器，也是固定代码，直接复制进去就好了 -->
+  <filter>
+    <filter-name>encodingFilter</filter-name>
+    <filter-class>
+	        org.springframework.web.filter.CharacterEncodingFilter
+	    </filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+    <init-param>
+      <param-name>forceEncoding</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <!-- 配置SpringMVC++++可以直接复制 -->
+  <servlet>
+    <servlet-name>springmvc</servlet-name>
+    <!-- springMVC的核心控制类，权权交给它 -->
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <!-- 初始化参数 -->
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <!-- 标注springmvc的配置文件地点 -->
+      <param-value>classpath:springmvc-servlet.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+  <!-- 连接上刚刚写的springmvc的配置 -->
+    <servlet-name>springmvc</servlet-name>
+    <!-- 代表所有的url请求都被拦截 -->
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 日志输出的初始化类 +++++可以复制，改一点参数就好-->
+  <context-param>
+    <param-name>log4jConfigLocation</param-name>
+    <param-value>classpath:log4j.properties</param-value>
+  </context-param>
+  <context-param>
+    <param-name>webAppRootKey</param-name>
+    <param-value>SMBMS_C09_01.root</param-value>
+  </context-param>
+  <!-- 开启日志输出的监听器 -->
+  <listener>
+    <listener-class>
+			org.springframework.web.util.Log4jConfigListener
+	</listener-class>
+  </listener>
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+</web-app>
